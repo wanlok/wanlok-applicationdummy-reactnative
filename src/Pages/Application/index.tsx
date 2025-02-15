@@ -4,19 +4,29 @@ import DPage from '../../Components/DPage'
 import DTextField from '../../Components/DTextField'
 import { Text } from 'react-native'
 
+const isValidName = (name: string) => {
+  return name.length > 0
+}
+
+const isValidAge = (age: string) => {
+  let valid = true
+  try {
+    const i = parseInt(age)
+    if (isNaN(i) || i < 18) {
+      valid = false
+    }
+  } catch (e) {
+    valid = false
+  }
+  return valid
+}
+
 export default () => {
   const [name, setName] = useState<string>('')
   const [age, setAge] = useState<string>('')
   const [valid, setValid] = useState<boolean>()
   const submit = () => {
-    let valid = false
-    try {
-      const i = parseInt(age)
-      if (i >= 18) {
-        valid = true
-      }
-    } catch (e) {}
-    setValid(valid)
+    setValid(isValidName(name) && isValidAge(age))
   }
   return (
     <DPage>
