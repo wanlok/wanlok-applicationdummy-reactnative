@@ -1,0 +1,20 @@
+appId: com.wanlok.applicationdummy
+---
+- tapOn:
+    text: 'Application'
+
+- tapOn:
+    text: 'Name'
+
+- inputText: 'Robert Wan'
+
+- tapOn:
+    text: 'Age'
+
+- inputText: '${AGE}'
+
+- tapOn:
+    text: 'Submit'
+
+- assertVisible:
+    text: '${SUBMISSION_RESULT}'

@@ -1,0 +1,18 @@
+appId: com.wanlok.applicationdummy
+---
+- launchApp
+
+- runFlow:
+    file: 'application-submission.yaml'
+    env:
+      AGE: '18'
+      SUBMISSION_RESULT: 'Valid submission'
+
+- tapOn:
+    point: 0%,6%
+
+- runFlow:
+    file: 'application-submission.yaml'
+    env:
+      AGE: '17'
+      SUBMISSION_RESULT: 'Invalid submission'
