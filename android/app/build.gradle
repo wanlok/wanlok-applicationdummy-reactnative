@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.dummy"
+    namespace "com.wanlok.applicationdummy"
     defaultConfig {
-        applicationId "com.dummy"
+        applicationId "com.wanlok.applicationdummy"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

@@ -1,4 +1,4 @@
-package com.dummy;
+package com.wanlok.applicationdummy;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
