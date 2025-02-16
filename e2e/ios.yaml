@@ -3,16 +3,16 @@ appId: com.wanlok.applicationdummy
 - launchApp
 
 - runFlow:
-    file: 'application-submission.yaml'
+    file: 'subflows/application-submission.yaml'
     env:
       AGE: '18'
       SUBMISSION_RESULT: 'Valid submission'
 
 - tapOn:
-    point: 0%,6%
+    point: 0%,10%
 
 - runFlow:
-    file: 'application-submission.yaml'
+    file: 'subflows/application-submission.yaml'
     env:
       AGE: '17'
       SUBMISSION_RESULT: 'Invalid submission'
