@@ -1,6 +1,9 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
       android:name=".MainApplication"
@@ -9,6 +12,32 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+      <service
+        android:name="io.invertase.firebase.messaging.ReactNativeFirebaseMessagingService"
+        android:exported="true"
+        tools:replace="android:exported">
+        <intent-filter>
+          <action android:name="com.google.firebase.MESSAGING_EVENT" />
+        </intent-filter>
+      </service>
+
+      <service
+        android:name="io.invertase.firebase.messaging.ReactNativeFirebaseInstanceIdService"
+        android:exported="false">
+        <intent-filter>
+          <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+        </intent-filter>
+      </service>
+
+      <receiver
+        android:name="io.invertase.firebase.messaging.ReactNativeFirebaseMessagingReceiver"
+        android:exported="true"
+        android:enabled="true">
+        <intent-filter>
+          <action android:name="io.invertase.firebase.messaging.NOTIFICATION_OPEN" />
+        </intent-filter>
+      </receiver>
+
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
