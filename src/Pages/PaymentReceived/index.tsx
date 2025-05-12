@@ -25,7 +25,7 @@ export default ({ data }: { data: { [key: string]: string | object } }) => {
       <Text style={{ marginTop: 4, fontSize: 16, color: 'black' }}>
         Account Number: {accountNumber}
       </Text>
-      <Text style={{ marginTop: 4, fontSize: 16, color: 'black' }}>AccountBalance: {balance}</Text>
+      <Text style={{ marginTop: 4, fontSize: 16, color: 'black' }}>Balance: {balance}</Text>
     </View>
   )
 }
