@@ -48,11 +48,7 @@ export default () => {
       <DButton style={{ marginTop: 16 }} onClick={submit}>
         Submit
       </DButton>
-      {valid && (
-        <Text style={{ color: 'green' }} t>
-          Valid submission
-        </Text>
-      )}
+      {valid && <Text style={{ color: 'green' }}>Valid submission</Text>}
       {valid === false && <Text style={{ color: 'red' }}>Invalid submission</Text>}
     </DPage>
   )

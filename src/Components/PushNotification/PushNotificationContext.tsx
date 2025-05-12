@@ -6,16 +6,23 @@ export const PushNotificationContext = createContext<{
   setPushNotification: React.Dispatch<
     React.SetStateAction<FirebaseMessagingTypes.RemoteMessage | null>
   >
+  show: boolean
+  setShow: React.Dispatch<React.SetStateAction<boolean>>
 }>({
   pushNotification: null,
   setPushNotification: () => {},
+  show: false,
+  setShow: () => {},
 })
 
 export const PushNotificationProvider = ({ children }: { children: ReactNode }) => {
   const [pushNotification, setPushNotification] =
     useState<FirebaseMessagingTypes.RemoteMessage | null>(null)
+  const [show, setShow] = useState<boolean>(false)
   return (
-    <PushNotificationContext.Provider value={{ pushNotification, setPushNotification }}>
+    <PushNotificationContext.Provider
+      value={{ pushNotification, setPushNotification, show, setShow }}
+    >
       {children}
     </PushNotificationContext.Provider>
   )

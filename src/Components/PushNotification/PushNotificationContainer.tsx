@@ -1,15 +1,19 @@
-import { ReactNode, useEffect } from 'react'
+import { ReactNode, useEffect, useRef } from 'react'
 import messaging from '@react-native-firebase/messaging'
 import { usePushNotification } from './PushNotificationContext'
+import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
+import { Text, View } from 'react-native'
+import PaymentReceived from '../../Pages/PaymentReceived'
 
 const PushNotificationContainer = ({ children }: { children: ReactNode }) => {
-  const { setPushNotification } = usePushNotification()
+  const { pushNotification, setPushNotification, show, setShow } = usePushNotification()
 
   useEffect(() => {
     messaging().requestPermission()
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       console.log(remoteMessage)
       setPushNotification(remoteMessage)
+      setShow(true)
     })
     return unsubscribe
   }, [])
@@ -18,8 +22,10 @@ const PushNotificationContainer = ({ children }: { children: ReactNode }) => {
     messaging()
       .getInitialNotification()
       .then(remoteMessage => {
-        console.log(remoteMessage)
-        setPushNotification(remoteMessage)
+        if (remoteMessage) {
+          setPushNotification(remoteMessage)
+          setShow(true)
+        }
       })
   }, [])
 
@@ -46,7 +52,45 @@ const PushNotificationContainer = ({ children }: { children: ReactNode }) => {
   //     })
   // }, [])
 
-  return children
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+
+  useEffect(() => {
+    if (show) {
+      bottomSheetModalRef.current?.present()
+    } else {
+      bottomSheetModalRef.current?.dismiss()
+    }
+  }, [show])
+
+  // const mockData = {
+  //   senderName: 'Peter Chan',
+  //   accountName: 'Robert Wan',
+  //   bsb: '123-456',
+  //   accountNumber: '11111111',
+  //   amount: '$100.00',
+  //   balance: '$360,000.00',
+  // }
+
+  return (
+    <>
+      {children}
+      {pushNotification && pushNotification.data && (
+        // {true && (
+        <BottomSheetModal
+          ref={bottomSheetModalRef}
+          onChange={index => {
+            if (index === -1) {
+              setShow(false)
+            }
+          }}
+        >
+          <BottomSheetView>
+            <PaymentReceived data={pushNotification.data} />
+          </BottomSheetView>
+        </BottomSheetModal>
+      )}
+    </>
+  )
 }
 
 export default PushNotificationContainer

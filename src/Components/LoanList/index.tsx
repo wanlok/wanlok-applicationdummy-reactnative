@@ -115,7 +115,6 @@ const LoanList = () => {
 
   return (
     <FlatList
-      refreshControl={refreshControl}
       data={data}
       renderItem={({ item, index }) => {
         return (

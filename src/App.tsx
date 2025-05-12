@@ -5,6 +5,9 @@ import Application from './Pages/Application'
 import { PushNotificationProvider } from './Components/PushNotification/PushNotificationContext'
 import PushNotificationContainer from './Components/PushNotification/PushNotificationContainer'
 import LoanList from './Components/LoanList'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -16,17 +19,23 @@ export type RootStackParamList = {
 
 const App = () => {
   return (
-    <PushNotificationProvider>
-      <PushNotificationContainer>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="Application" component={Application} />
-            <Stack.Screen name="LoanList" component={LoanList} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </PushNotificationContainer>
-    </PushNotificationProvider>
+    <SafeAreaProvider>
+      <GestureHandlerRootView>
+        <BottomSheetModalProvider>
+          <PushNotificationProvider>
+            <PushNotificationContainer>
+              <NavigationContainer>
+                <Stack.Navigator initialRouteName="Home">
+                  <Stack.Screen name="Home" component={Home} />
+                  <Stack.Screen name="Application" component={Application} />
+                  <Stack.Screen name="LoanList" component={LoanList} />
+                </Stack.Navigator>
+              </NavigationContainer>
+            </PushNotificationContainer>
+          </PushNotificationProvider>
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   )
 }
 
