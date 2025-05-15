@@ -87,7 +87,7 @@ android {
         versionCode 1
         versionName "1.0"
         manifestPlaceholders = [
-            auth0Domain: project.hasProperty('AUTH0_DOMAIN') ? AUTH0_DOMAIN : "",
+            auth0Domain: project.env.get("AUTH0_DOMAIN"),
             auth0Scheme: "${applicationId}.auth0"
         ]
     }
