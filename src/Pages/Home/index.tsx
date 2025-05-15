@@ -4,9 +4,12 @@ import { RootStackParamList } from '../../App'
 import DPage from '../../Components/DPage'
 import DButton from '../../Components/DButton'
 import { usePushNotification } from '../../Components/PushNotification/PushNotificationContext'
+import { useAuth0 } from 'react-native-auth0'
 
 export default ({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) => {
   const { pushNotification, show, setShow } = usePushNotification()
+
+  const { authorize, clearSession } = useAuth0()
 
   useEffect(() => {
     console.log(pushNotification)
@@ -31,6 +34,30 @@ export default ({ navigation }: { navigation: NativeStackNavigationProp<RootStac
           }}
         >
           Loan List
+        </DButton>
+        <DButton
+          style={{ marginTop: 16 }}
+          onClick={async () => {
+            try {
+              await authorize()
+            } catch (e) {
+              console.log(e)
+            }
+          }}
+        >
+          Login
+        </DButton>
+        <DButton
+          style={{ marginTop: 16 }}
+          onClick={async () => {
+            try {
+              await clearSession()
+            } catch (e) {
+              console.log(e)
+            }
+          }}
+        >
+          Logout
         </DButton>
       </DPage>
     </>
