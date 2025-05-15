@@ -1307,6 +1307,10 @@ PODS:
     - React-jsiexecutor
     - React-RCTFBReactNativeSpec
     - ReactCommon/turbomodule/core
+  - react-native-config (1.5.5):
+    - react-native-config/App (= 1.5.5)
+  - react-native-config/App (1.5.5):
+    - React-Core
   - react-native-safe-area-context (5.4.0):
     - DoubleConversion
     - glog
@@ -1899,6 +1903,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
+  - react-native-config (from `../node_modules/react-native-config`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -2030,6 +2035,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
+  react-native-config:
+    :path: "../node_modules/react-native-config"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-NativeModulesApple:
@@ -2152,6 +2159,7 @@ SPEC CHECKSUMS:
   React-logger: 304814ae37503c8eb54359851cc55bd4f936b39c
   React-Mapbuffer: 8ba61e036d346d363ad208cfb1dea6c7fce0dce0
   React-microtasksnativemodule: feb934d19767f38faf9f9f0efb7cc1dcdf2d11b7
+  react-native-config: 3367df9c1f25bb96197007ec531c7087ed4554c3
   react-native-safe-area-context: 4da09dc73a70ad08307a6c09f61c7b03fbd45699
   React-NativeModulesApple: 55d6d890aa60200292a90cc1ca6c53409650f48f
   React-perflogger: 0ea25c109dba33d47dec36b2634bf7ea67c1a555
