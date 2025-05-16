@@ -3,7 +3,7 @@
 #import "ReactNativeDelegate.h"
 #import <RCTReactNativeFactory.h>
 
-@interface AppDelegate : RCTAppDelegate
+@interface AppDelegate : UIResponder<UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, strong) ReactNativeDelegate *reactNativeDelegate;

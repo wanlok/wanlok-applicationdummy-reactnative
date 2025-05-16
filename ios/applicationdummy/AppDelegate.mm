@@ -15,29 +15,22 @@
 {
   [FIRApp configure];
   
-//  ReactNativeDelegate *delegate = [[ReactNativeDelegate alloc] init];
-//  RCTReactNativeFactory *factory = [[RCTReactNativeFactory alloc] initWithDelegate:delegate];
-//  delegate.dependencyProvider = [RCTAppDependencyProvider new];
-//  
-//  self.reactNativeDelegate = delegate;
-//  self.reactNativeFactory = factory;
-//  
-//  UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-//  
-//  self.window = window;
-//  
-//  [factory startReactNativeWithModuleName:@"applicationdummy"
-//                                 inWindow:window
-//                            launchOptions:launchOptions];
-//  
-//  return true;
+  ReactNativeDelegate *delegate = [[ReactNativeDelegate alloc] init];
+  RCTReactNativeFactory *factory = [[RCTReactNativeFactory alloc] initWithDelegate:delegate];
+  delegate.dependencyProvider = [RCTAppDependencyProvider new];
   
-  self.moduleName = @"applicationdummy";
-  self.dependencyProvider = [RCTAppDependencyProvider new];
-  // You can add your custom initial props in the dictionary below.
-  // They will be passed down to the ViewController used by React Native.
-  self.initialProps = @{};
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+  self.reactNativeDelegate = delegate;
+  self.reactNativeFactory = factory;
+  
+  UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  
+  self.window = window;
+  
+  [factory startReactNativeWithModuleName:@"applicationdummy"
+                                 inWindow:window
+                            launchOptions:launchOptions];
+  
+  return true;
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
