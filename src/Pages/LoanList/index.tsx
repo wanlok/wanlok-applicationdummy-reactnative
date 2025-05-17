@@ -1,143 +1,135 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { Color, Size } from '../../Components/Styles'
 
 const data = [
   {
     address: '123 Main St, Sydney, NSW 2000',
     bsb: '123-456',
     accountNumber: '111111111',
-    lvr: '10%',
+    amount: '$100,000.00',
     balance: '$111,111.00',
   },
   {
     address: '456 Elm St, Melbourne, VIC 3000',
     bsb: '123-456',
     accountNumber: '222222222',
-    lvr: '20%',
+    amount: '$200,000.00',
     balance: '$222,222.00',
   },
   {
     address: '789 Oak St, Brisbane, QLD 4000',
     bsb: '123-456',
     accountNumber: '333333333',
-    lvr: '30%',
+    amount: '$300,000.00',
     balance: '$333,333.00',
   },
   {
     address: '101 Pine St, Perth, WA 6000',
     bsb: '123-456',
     accountNumber: '444444444',
-    lvr: '40%',
+    amount: '$400,000.00',
     balance: '$444,444.00',
   },
   {
     address: '202 Maple St, Adelaide, SA 5000',
     bsb: '123-456',
     accountNumber: '555555555',
-    lvr: '50%',
+    amount: '$500,000.00',
     balance: '$555,555.00',
   },
   {
     address: '303 Birch St, Hobart, TAS 7000',
     bsb: '123-456',
     accountNumber: '666666666',
-    lvr: '60%',
+    amount: '$600,000.00',
     balance: '$666,666.00',
   },
   {
     address: '404 Cedar St, Darwin, NT 8000',
     bsb: '123-456',
     accountNumber: '777777777',
-    lvr: '70%',
+    amount: '$700,000.00',
     balance: '$777,777.00',
   },
   {
     address: '505 Spruce St, Canberra, ACT 2600',
     bsb: '123-456',
     accountNumber: '888888888',
-    lvr: '80%',
+    amount: '$800,000.00',
     balance: '$888,888.00',
   },
   {
     address: '606 Fir St, Gold Coast, QLD 4217',
     bsb: '123-456',
     accountNumber: '999999999',
-    lvr: '90%',
+    amount: '$900,000.00',
     balance: '$999,999.00',
   },
 ]
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    backgroundColor: '#FFFFFF',
-  },
-  containerSpacing: {
-    marginTop: 8,
-  },
   row: {
-    marginTop: 16,
     flexDirection: 'row',
   },
   column: {
     flex: 0.5,
-    justifyContent: 'center',
-    flexDirection: 'row',
     padding: 16,
     backgroundColor: '#EEEEEE',
   },
-  address: {
-    marginTop: 4,
+  columnLeft: {
+    alignItems: 'flex-start',
   },
-  accountDetails: {
-    marginTop: 8,
-  },
-  spaces: {
-    width: 2,
-    backgroundColor: '#FFFFFF',
-  },
-  text: {
-    color: '#000000',
-  },
-  smaller: {
-    fontSize: 14,
-    lineHeight: 22,
-  },
-  regular: {
-    fontSize: 16,
-  },
-  larger: {
-    fontSize: 20,
+  columnRight: {
+    alignItems: 'flex-end',
   },
 })
 
 const LoanList = () => {
+  const { bottom } = useSafeAreaInsets()
   return (
     <FlatList
+      style={{ marginBottom: bottom }}
       data={data}
       renderItem={({ item, index }) => {
         return (
-          <View style={[styles.container, index > 0 ? styles.containerSpacing : {}]}>
-            <Text style={[styles.text, styles.smaller]}>Loan {index + 1}</Text>
-            <View style={styles.address}>
-              <Text style={[styles.text, styles.larger]}>{item.address}</Text>
+          <Pressable
+            // onPress={onClick}
+            style={[
+              {
+                padding: 16,
+                backgroundColor: '#FFFFFF',
+              },
+              index > 0 ? { marginTop: 8 } : {},
+            ]}
+            android_ripple={{ color: '#CCCCCC' }}
+          >
+            <Text style={[Color.text, Size.smaller]}>Loan {index + 1}</Text>
+            <View style={{ marginTop: 8 }}>
+              <Text style={[Color.text, Size.larger]}>{item.address}</Text>
             </View>
-            <View style={styles.accountDetails}>
-              <Text style={[styles.text, styles.regular]}>
+            <View style={{ marginTop: 12 }}>
+              <Text style={[Color.text, Size.regular]}>
                 {item.bsb} {item.accountNumber}
               </Text>
             </View>
-            <View style={styles.row}>
-              <View style={styles.column}>
-                <Text style={[styles.text, styles.smaller]}>LVR: </Text>
-                <Text style={[styles.text, styles.regular]}>{item.lvr}</Text>
+            <View style={[styles.row, { marginTop: 16 }]}>
+              <View style={[styles.column, styles.columnLeft]}>
+                <Text style={[Color.text, Size.regular]}>Amount</Text>
               </View>
-              <View style={styles.spaces} />
-              <View style={styles.column}>
-                <Text style={[styles.text, styles.smaller]}>Balance: </Text>
-                <Text style={[styles.text, styles.regular]}>{item.balance}</Text>
+              <View style={[styles.column, styles.columnRight]}>
+                <Text style={[Color.text, Size.regular]}>{item.amount}</Text>
               </View>
             </View>
-          </View>
+            <View style={[styles.row, { marginTop: 2 }]}>
+              <View style={[styles.column, styles.columnLeft]}>
+                <Text style={[Color.text, Size.regular]}>Balance</Text>
+              </View>
+              <View style={[styles.column, styles.columnRight]}>
+                <Text style={[Color.text, Size.regular]}>{item.balance}</Text>
+              </View>
+            </View>
+          </Pressable>
         )
       }}
       keyExtractor={item => item.accountNumber}
