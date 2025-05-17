@@ -3,14 +3,12 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../App'
 import DButton from '../../Components/DButton'
 import { usePushNotification } from '../../Components/PushNotification/PushNotificationContext'
-import { useAuth0 } from 'react-native-auth0'
 import { FlatList, RefreshControl } from 'react-native'
+import useLogin from '../../useLogin'
 
-export default ({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) => {
+const Home = ({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) => {
+  const { authenticated, login, logout } = useLogin()
   const { pushNotification, show, setShow } = usePushNotification()
-
-  const { authorize, clearSession, user } = useAuth0()
-
   const [refreshing, setRefreshing] = useState(false)
 
   useEffect(() => {
@@ -20,13 +18,7 @@ export default ({ navigation }: { navigation: NativeStackNavigationProp<RootStac
   const menu = [
     {
       title: 'Login',
-      onClick: async () => {
-        try {
-          await authorize()
-        } catch (e) {
-          console.log(e)
-        }
-      },
+      onClick: login,
     },
   ]
 
@@ -47,30 +39,21 @@ export default ({ navigation }: { navigation: NativeStackNavigationProp<RootStac
     },
     {
       title: 'Logout',
-      onClick: async () => {
-        try {
-          await clearSession()
-        } catch (e) {
-          console.log(e)
-        }
-      },
+      onClick: logout,
     },
   ]
 
+  const onRefresh = () => {
+    setRefreshing(true)
+    setTimeout(() => {
+      setRefreshing(false)
+    }, 3000)
+  }
+
   return (
     <FlatList
-      refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={() => {
-            setRefreshing(true)
-            setTimeout(() => {
-              setRefreshing(false)
-            }, 3000)
-          }}
-        />
-      }
-      data={user ? userMenu : menu}
+      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+      data={authenticated ? userMenu : menu}
       renderItem={({ item, index }) => {
         return (
           <DButton style={{ marginTop: index > 0 ? 1 : 0 }} onClick={item.onClick}>
@@ -81,3 +64,5 @@ export default ({ navigation }: { navigation: NativeStackNavigationProp<RootStac
     />
   )
 }
+
+export default Home
