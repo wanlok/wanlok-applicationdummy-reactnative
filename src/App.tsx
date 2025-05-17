@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Home from './Pages/Home'
-import Application from './Pages/Application'
+import Home from './Screens/Home'
+import Application from './Screens/Application'
 import { PushNotificationProvider } from './Components/PushNotification/PushNotificationContext'
 import PushNotificationContainer from './Components/PushNotification/PushNotificationContainer'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -9,7 +9,7 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { Auth0Provider } from 'react-native-auth0'
 import Config from 'react-native-config'
-import LoanList from './Pages/LoanList'
+import LoanList from './Screens/LoanList'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
