@@ -7,7 +7,7 @@ import { FlatList, RefreshControl } from 'react-native'
 import useLogin from '../../useLogin'
 
 const Home = ({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) => {
-  const { authenticated, login, logout } = useLogin()
+  const { authenticated, authenticate, login, logout } = useLogin()
   const { pushNotification, show, setShow } = usePushNotification()
   const [refreshing, setRefreshing] = useState(false)
 
@@ -43,11 +43,10 @@ const Home = ({ navigation }: { navigation: NativeStackNavigationProp<RootStackP
     },
   ]
 
-  const onRefresh = () => {
+  const onRefresh = async () => {
     setRefreshing(true)
-    setTimeout(() => {
-      setRefreshing(false)
-    }, 3000)
+    await authenticate()
+    setRefreshing(false)
   }
 
   return (
