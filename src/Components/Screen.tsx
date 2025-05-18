@@ -71,6 +71,8 @@ export default ({
       const { s, p } = routes[0]
       if (s === 'LoanDetails' && p != undefined) {
         navigation?.navigate('LoanDetails', p)
+      } else if (s === 'RepayLoan' && p != undefined) {
+        navigation?.navigate('RepayLoan', p)
       } else if (s === 'PushNotification') {
         navigation?.navigate('PushNotification')
       }

@@ -38,27 +38,17 @@ const LoanDetails = ({
           <DButton
             style={{ flex: 1 }}
             onClick={() => {
-              console.log('Hello World')
+              navigation.navigate('RepayLoan', route.params)
             }}
           >
             Repay Loan
           </DButton>
           <View style={{ width: 2 }} />
-          <DButton
-            style={{ flex: 1 }}
-            onClick={() => {
-              console.log('Hello World')
-            }}
-          >
+          <DButton style={{ flex: 1 }} onClick={() => {}}>
             Notification Settings
           </DButton>
           <View style={{ width: 2 }} />
-          <DButton
-            style={{ flex: 1 }}
-            onClick={() => {
-              console.log('Hello World')
-            }}
-          >
+          <DButton style={{ flex: 1 }} onClick={() => {}}>
             Repayment History
           </DButton>
         </View>
