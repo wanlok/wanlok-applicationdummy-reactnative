@@ -5,6 +5,8 @@ import { Text, View } from 'react-native'
 import Screen from '../../Components/Screen'
 import { useAuthentication } from '../../Hooks/AuthenticationContext'
 import { useFocusEffect } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../Components/Navigation'
 
 const isValidName = (name: string) => {
   return name.length > 0
@@ -23,7 +25,7 @@ const isValidAge = (age: string) => {
   return valid
 }
 
-export default () => {
+export default ({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) => {
   const [name, setName] = useState<string>('')
   const [age, setAge] = useState<string>('')
   const [valid, setValid] = useState<boolean>()
@@ -32,7 +34,7 @@ export default () => {
     setValid(isValidName(name) && isValidAge(age))
   }
   return (
-    <Screen>
+    <Screen navigation={navigation}>
       <View style={{ padding: 16 }}>
         <DTextField
           placeholder={'Name'}

@@ -18,11 +18,9 @@ const App = () => {
           <GestureHandlerRootView>
             <BottomSheetModalProvider>
               <PushNotificationProvider>
-                <PushNotificationContainer>
-                  <NavigationContainer>
-                    <Navigation />
-                  </NavigationContainer>
-                </PushNotificationContainer>
+                <NavigationContainer>
+                  <Navigation />
+                </NavigationContainer>
               </PushNotificationProvider>
             </BottomSheetModalProvider>
           </GestureHandlerRootView>

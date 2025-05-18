@@ -25,7 +25,7 @@ const LoanDetails = ({
   }, [index, navigation])
 
   return (
-    <Screen>
+    <Screen navigation={navigation}>
       <ScrollView>
         <Text style={[Color.text, Size.banner, { textAlign: 'center', marginTop: 32 }]}>
           $1,200.00

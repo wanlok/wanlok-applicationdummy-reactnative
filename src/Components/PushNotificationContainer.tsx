@@ -1,9 +1,11 @@
-import { ReactNode, useEffect, useRef } from 'react'
+import react, { ReactNode, useEffect, useRef } from 'react'
 import messaging from '@react-native-firebase/messaging'
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import { Text, View } from 'react-native'
 import PaymentReceived from '../Screens/PaymentReceived'
 import { usePushNotification } from '../Hooks/PushNotificationContext'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from './Navigation'
 
 const PushNotificationContainer = ({ children }: { children: ReactNode }) => {
   const { pushNotification, setPushNotification, show, setShow } = usePushNotification()
@@ -13,7 +15,12 @@ const PushNotificationContainer = ({ children }: { children: ReactNode }) => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       console.log(remoteMessage)
       setPushNotification(remoteMessage)
-      setShow(true)
+      // setShow(true)
+
+      // const data = remoteMessage.data
+      // if (data) {
+      //   navigation.navigate('PushNotification')
+      // }
     })
     return unsubscribe
   }, [])
@@ -24,7 +31,11 @@ const PushNotificationContainer = ({ children }: { children: ReactNode }) => {
       .then(remoteMessage => {
         if (remoteMessage) {
           setPushNotification(remoteMessage)
-          setShow(true)
+          // setShow(true)
+          // const data = remoteMessage.data
+          // if (data) {
+          //   navigation.navigate('PushNotification')
+          // }
         }
       })
   }, [])
@@ -52,15 +63,15 @@ const PushNotificationContainer = ({ children }: { children: ReactNode }) => {
   //     })
   // }, [])
 
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+  // const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
-  useEffect(() => {
-    if (show) {
-      bottomSheetModalRef.current?.present()
-    } else {
-      bottomSheetModalRef.current?.dismiss()
-    }
-  }, [show])
+  // useEffect(() => {
+  // if (show) {
+  //   bottomSheetModalRef.current?.present()
+  // } else {
+  //   bottomSheetModalRef.current?.dismiss()
+  // }
+  // }, [show])
 
   // const mockData = {
   //   senderName: 'Peter Chan',
@@ -74,7 +85,7 @@ const PushNotificationContainer = ({ children }: { children: ReactNode }) => {
   return (
     <>
       {children}
-      {pushNotification && pushNotification.data && (
+      {/* {pushNotification && pushNotification.data && (
         // {true && (
         <BottomSheetModal
           ref={bottomSheetModalRef}
@@ -88,7 +99,7 @@ const PushNotificationContainer = ({ children }: { children: ReactNode }) => {
             <PaymentReceived data={pushNotification.data} />
           </BottomSheetView>
         </BottomSheetModal>
-      )}
+      )} */}
     </>
   )
 }

@@ -23,7 +23,7 @@ const LoanList = ({
   }
 
   return (
-    <Screen>
+    <Screen navigation={navigation}>
       <FlatList
         refreshing={refreshing}
         onRefresh={onRefresh}

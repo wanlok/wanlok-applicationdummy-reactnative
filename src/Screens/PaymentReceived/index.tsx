@@ -1,16 +1,23 @@
 import { Text, View } from 'react-native'
 import Screen from '../../Components/Screen'
+import { usePushNotification } from '../../Hooks/PushNotificationContext'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../Components/Navigation'
 
-export default ({ data }: { data: { [key: string]: string | object } }) => {
-  const senderName = data.senderName as string
-  const accountName = data.accountName as string
-  const bsb = data.bsb as string
-  const accountNumber = data.accountNumber as string
-  const amount = data.amount as string
-  const balance = data.balance as string
+export default ({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) => {
+  const { pushNotification } = usePushNotification()
+
+  const data = pushNotification?.data
+
+  const senderName = data?.senderName as string
+  const accountName = data?.accountName as string
+  const bsb = data?.bsb as string
+  const accountNumber = data?.accountNumber as string
+  const amount = data?.amount as string
+  const balance = data?.balance as string
 
   return (
-    <Screen>
+    <Screen navigation={navigation}>
       <View style={{ padding: 16 }}>
         <Text style={{ fontSize: 32, color: 'black' }}>Payment Received</Text>
         <Text style={{ marginTop: 24, lineHeight: 24, fontSize: 16, color: 'black' }}>

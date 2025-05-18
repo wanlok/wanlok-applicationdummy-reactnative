@@ -9,6 +9,7 @@ import Logout from '../Screens/Logout'
 import LoanList from '../Screens/LoanList'
 import LoanDetails from '../Screens/LoanDetails'
 import Application from '../Screens/Application'
+import PaymentReceived from '../Screens/PaymentReceived'
 
 export type RootStackParamList = {
   Login: undefined
@@ -16,6 +17,7 @@ export type RootStackParamList = {
   LoanList: undefined
   LoanDetails: { index: number }
   ApplicationScreen: undefined
+  PushNotification: { [key: string]: string | object }
 }
 
 const Drawer = createDrawerNavigator()
@@ -41,6 +43,7 @@ const LoanStack = () => {
     <Stack.Navigator>
       <Stack.Screen name="LoanList" component={LoanList} options={showMenu('Loans')} />
       <Stack.Screen name="LoanDetails" component={LoanDetails} />
+      <Stack.Screen name="PushNotification" component={PaymentReceived} />
     </Stack.Navigator>
   )
 }
@@ -53,6 +56,16 @@ const ApplicationStack = () => {
         component={Application}
         options={showMenu('Application')}
       />
+      <Stack.Screen name="PushNotification" component={PaymentReceived} />
+    </Stack.Navigator>
+  )
+}
+
+const LoginStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="PushNotification" component={PaymentReceived} />
     </Stack.Navigator>
   )
 }
@@ -69,7 +82,7 @@ const Navigation = () => {
         </>
       ) : (
         <>
-          <Drawer.Screen name="Login" component={Login} />
+          <Drawer.Screen name="Login" component={LoginStack} />
         </>
       )}
     </Drawer.Navigator>
