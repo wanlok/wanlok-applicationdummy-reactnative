@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useAuthentication } from '../../Components/Authentication/AuthenticationContext'
+import { useAuthentication } from '../../Hooks/AuthenticationContext'
 
 const Logout = () => {
   const { logout } = useAuthentication()

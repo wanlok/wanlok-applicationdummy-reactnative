@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import TwoColumnList from '../../Components/TwoColumnList'
 import { data } from '../../Data'
-import { Color, Size } from '../../Components/Styles'
+import { Color, Size } from '../../Styles'
 import DButton from '../../Components/DButton'
 import Screen from '../../Components/Screen'
 

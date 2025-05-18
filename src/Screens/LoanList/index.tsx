@@ -1,11 +1,11 @@
 import { FlatList, Pressable, Text, View } from 'react-native'
-import { Color, Size } from '../../Components/Styles'
+import { Color, Size } from '../../Styles'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { data } from '../../Data'
 import { useEffect } from 'react'
 import TwoColumnList from '../../Components/TwoColumnList'
 import Screen from '../../Components/Screen'
-import { RootStackParamList } from '../../Navigation'
+import { RootStackParamList } from '../../Components/Navigation'
 
 const LoanList = ({
   navigation,

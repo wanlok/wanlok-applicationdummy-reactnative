@@ -1,9 +1,9 @@
 import { ReactNode, useEffect, useRef } from 'react'
 import messaging from '@react-native-firebase/messaging'
-import { usePushNotification } from './PushNotificationContext'
+import { usePushNotification } from './PushNotification/PushNotificationContext'
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import { Text, View } from 'react-native'
-import PaymentReceived from '../../Screens/PaymentReceived'
+import PaymentReceived from '../Screens/PaymentReceived'
 
 const PushNotificationContainer = ({ children }: { children: ReactNode }) => {
   const { pushNotification, setPushNotification, show, setShow } = usePushNotification()

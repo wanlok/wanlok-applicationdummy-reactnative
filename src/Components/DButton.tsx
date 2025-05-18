@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Pressable, StyleProp, Text, ViewStyle } from 'react-native'
-import { Color, Size } from './Styles'
+import { Color, Size } from '../Styles'
 
 export default ({
   onClick,
