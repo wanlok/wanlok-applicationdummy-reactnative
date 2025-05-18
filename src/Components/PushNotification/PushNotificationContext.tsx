@@ -1,7 +1,7 @@
-import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import React, { createContext, useState, useContext, ReactNode } from 'react'
+import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 
-export const PushNotificationContext = createContext<{
+const PushNotificationContext = createContext<{
   pushNotification: FirebaseMessagingTypes.RemoteMessage | null
   setPushNotification: React.Dispatch<
     React.SetStateAction<FirebaseMessagingTypes.RemoteMessage | null>

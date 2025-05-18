@@ -1,9 +1,9 @@
 import { jwtDecode } from 'jwt-decode'
-import { useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useAuth0 } from 'react-native-auth0'
 import Config from 'react-native-config'
 
-const useLogin = () => {
+const useAuth0Authentication = () => {
   const { authorize, clearSession, clearCredentials, hasValidCredentials, getCredentials, user } =
     useAuth0()
   const [authenticated, setAuthenticated] = useState<boolean | null>(null)
@@ -55,4 +55,19 @@ const useLogin = () => {
   return { authenticated, authenticate, login, logout }
 }
 
-export default useLogin
+const AuthenticationContext = createContext<ReturnType<typeof useAuth0Authentication>>({
+  authenticated: null,
+  authenticate: () => Promise.resolve(),
+  login: () => Promise.resolve(),
+  logout: () => Promise.resolve(),
+})
+
+export const AuthenticationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return (
+    <AuthenticationContext.Provider value={useAuth0Authentication()}>
+      {children}
+    </AuthenticationContext.Provider>
+  )
+}
+
+export const useAuthentication = () => useContext(AuthenticationContext)
