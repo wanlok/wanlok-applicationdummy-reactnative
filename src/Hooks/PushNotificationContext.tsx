@@ -1,24 +1,36 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react'
+import React, { createContext, useState, useContext, ReactNode, Dispatch } from 'react'
 
 interface PushNotification {
-  redirectRoutes: { s: string; p?: string }[]
+  redirectRoutes: { s: string; p?: { index: number } }[]
   data: { [key: string]: string | object }
 }
 
-const empty = { redirectRoutes: [], data: {} }
+export const emptyPushNotification = { redirectRoutes: [], data: {} }
 
 const PushNotificationContext = createContext<{
   pushNotification: PushNotification
-  setPushNotification: React.Dispatch<React.SetStateAction<PushNotification>>
+  setPushNotification: Dispatch<React.SetStateAction<PushNotification>>
+  pushNotificationViewed: boolean
+  setPushNotificationViewed: Dispatch<React.SetStateAction<boolean>>
 }>({
-  pushNotification: empty,
+  pushNotification: emptyPushNotification,
   setPushNotification: () => {},
+  pushNotificationViewed: false,
+  setPushNotificationViewed: () => {},
 })
 
 export const PushNotificationProvider = ({ children }: { children: ReactNode }) => {
-  const [pushNotification, setPushNotification] = useState<PushNotification>(empty)
+  const [pushNotification, setPushNotification] = useState<PushNotification>(emptyPushNotification)
+  const [pushNotificationViewed, setPushNotificationViewed] = useState(false)
   return (
-    <PushNotificationContext.Provider value={{ pushNotification, setPushNotification }}>
+    <PushNotificationContext.Provider
+      value={{
+        pushNotification,
+        setPushNotification,
+        pushNotificationViewed,
+        setPushNotificationViewed,
+      }}
+    >
       {children}
     </PushNotificationContext.Provider>
   )

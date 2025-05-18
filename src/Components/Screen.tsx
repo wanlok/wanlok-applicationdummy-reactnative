@@ -19,7 +19,12 @@ export default ({
 }) => {
   const { bottom } = useSafeAreaInsets()
   const { authenticate } = useAuthentication()
-  const { pushNotification, setPushNotification } = usePushNotification()
+  const {
+    pushNotification,
+    setPushNotification,
+    pushNotificationViewed,
+    setPushNotificationViewed,
+  } = usePushNotification()
   const currentRoutes = navigation?.getState().routes.map(route => route.name as string) ?? []
 
   useFocusEffect(() => {
@@ -45,6 +50,7 @@ export default ({
         console.log('remoteMessage.data', data)
         const redirectRoutes = JSON.parse(data.redirectRoutes as string)
         setPushNotification({ redirectRoutes, data })
+        setPushNotificationViewed(false)
       }
     }
   }
@@ -61,15 +67,18 @@ export default ({
 
   useEffect(() => {
     const routes = pushNotification.redirectRoutes.filter(route => !currentRoutes.includes(route.s))
-    if (routes.length > 0) {
+    if (routes.length > 0 && !pushNotificationViewed) {
       const { s, p } = routes[0]
-      if (s === 'LoanDetails') {
-        navigation?.navigate('LoanDetails', { index: 0 })
+      if (s === 'LoanDetails' && p != undefined) {
+        navigation?.navigate('LoanDetails', p)
       } else if (s === 'PushNotification') {
         navigation?.navigate('PushNotification')
       }
+      if (routes.length === 1) {
+        setPushNotificationViewed(true)
+      }
     }
-  }, [pushNotification])
+  }, [pushNotification, pushNotificationViewed])
 
   return (
     <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
