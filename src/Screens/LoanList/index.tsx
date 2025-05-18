@@ -13,20 +13,14 @@ const LoanList = ({
 }: {
   navigation: NativeStackNavigationProp<RootStackParamList>
 }) => {
-  const { authenticated, authenticate } = useAuthentication()
   const [refreshing, setRefreshing] = useState(false)
-
-  useEffect(() => {
-    navigation.setOptions({ title: 'Loans' })
-  }, [navigation])
 
   const onRefresh = async () => {
     setRefreshing(true)
-    await authenticate()
-    setRefreshing(false)
+    setTimeout(() => {
+      setRefreshing(false)
+    }, 1000)
   }
-
-  console.log('authenticated', authenticated)
 
   return (
     <Screen>
@@ -53,6 +47,7 @@ const LoanList = ({
               <Text style={[Color.text, Size.small]}>Loan {index + 1}</Text>
               <Text style={[Color.text, Size.large, { marginTop: 8 }]}>{item.address}</Text>
               <TwoColumnList
+                keyPrefix={`loan${index}Details`}
                 data={[
                   { label: 'Amount', value: item.amount },
                   { label: 'Balance', value: item.balance },

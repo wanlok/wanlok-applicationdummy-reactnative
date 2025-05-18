@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DButton from '../../Components/DButton'
 import DTextField from '../../Components/DTextField'
 import { Text, View } from 'react-native'
 import Screen from '../../Components/Screen'
+import { useAuthentication } from '../../Hooks/AuthenticationContext'
+import { useFocusEffect } from '@react-navigation/native'
 
 const isValidName = (name: string) => {
   return name.length > 0
@@ -25,6 +27,7 @@ export default () => {
   const [name, setName] = useState<string>('')
   const [age, setAge] = useState<string>('')
   const [valid, setValid] = useState<boolean>()
+
   const submit = () => {
     setValid(isValidName(name) && isValidAge(age))
   }

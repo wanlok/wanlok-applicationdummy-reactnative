@@ -66,6 +66,7 @@ const LoanDetails = ({
           Loan Details
         </Text>
         <TwoColumnList
+          keyPrefix="loanDetails"
           data={[
             { label: 'Amount', value: loan.amount },
             { label: 'Term', value: loan.term },
@@ -77,6 +78,7 @@ const LoanDetails = ({
           Property and Bank Information
         </Text>
         <TwoColumnList
+          keyPrefix="propertyAndBankInformation"
           data={[
             { label: 'Address', value: loan.address },
             { label: 'BSB', value: loan.bsb },

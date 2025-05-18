@@ -19,14 +19,19 @@ const styles = StyleSheet.create({
 })
 
 const TwoColumnList = ({
+  keyPrefix,
   data,
   marginTop = 0,
 }: {
+  keyPrefix: string
   data: { label: string; value: string }[]
   marginTop?: number
 }) => {
   return data.map(({ label, value }, index) => (
-    <View style={[styles.row, { marginTop: index > 0 ? 2 : marginTop }]}>
+    <View
+      key={`${keyPrefix}-${index}`}
+      style={[styles.row, { marginTop: index > 0 ? 2 : marginTop }]}
+    >
       <Text style={[styles.column, styles.left, Color.text, Size.regular]}>{label}</Text>
       <Text style={[styles.column, styles.right, Color.text, Size.regular]}>{value}</Text>
     </View>

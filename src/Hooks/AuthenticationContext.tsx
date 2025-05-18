@@ -16,7 +16,9 @@ const useAuth0Authentication = () => {
         let exp = jwtDecode(accessToken).exp
         if (exp) {
           exp = exp * 1000
-          sessionExpired = exp - Date.now() <= 0
+          const seconds = (exp - Date.now()) / 1000
+          console.log('seconds', seconds)
+          sessionExpired = seconds <= 0
         }
       } catch (e) {
         console.log(e)

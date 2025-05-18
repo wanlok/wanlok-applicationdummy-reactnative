@@ -1,25 +1,25 @@
 import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { createDrawerNavigator } from '@react-navigation/drawer'
 import { Pressable } from 'react-native'
-import LoanList from '../Screens/LoanList'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { useAuthentication } from '../Hooks/AuthenticationContext'
 import Icon from '@react-native-vector-icons/ionicons'
+import Login from '../Screens/Login'
+import Logout from '../Screens/Logout'
+import LoanList from '../Screens/LoanList'
 import LoanDetails from '../Screens/LoanDetails'
 import Application from '../Screens/Application'
-import Landing from '../Screens/Landing'
-import Logout from '../Screens/Logout'
-import { useAuthentication } from '../Hooks/AuthenticationContext'
+
+export type RootStackParamList = {
+  Login: undefined
+  Logout: undefined
+  LoanList: undefined
+  LoanDetails: { index: number }
+  ApplicationScreen: undefined
+}
 
 const Drawer = createDrawerNavigator()
 const Stack = createNativeStackNavigator<RootStackParamList>()
-
-export type RootStackParamList = {
-  Landing: undefined
-  Application: undefined
-  LoanList: undefined
-  LoanDetails: { index: number }
-  Logout: undefined
-}
 
 const showMenu = (title: string) => {
   return ({ navigation }: { navigation: any }) => ({
@@ -48,7 +48,11 @@ const LoanStack = () => {
 const ApplicationStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Application" component={Application} options={showMenu('Applications')} />
+      <Stack.Screen
+        name="ApplicationScreen"
+        component={Application}
+        options={showMenu('Application')}
+      />
     </Stack.Navigator>
   )
 }
@@ -65,7 +69,7 @@ const Navigation = () => {
         </>
       ) : (
         <>
-          <Drawer.Screen name="Landing" component={Landing} />
+          <Drawer.Screen name="Login" component={Login} />
         </>
       )}
     </Drawer.Navigator>

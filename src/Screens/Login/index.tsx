@@ -1,20 +1,19 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { View } from 'react-native'
-import { usePushNotification } from '../../Hooks/PushNotificationContext'
 import DButton from '../../Components/DButton'
 import Screen from '../../Components/Screen'
 import { useAuthentication } from '../../Hooks/AuthenticationContext'
 
-const Home = () => {
+const Login = () => {
   const { login } = useAuthentication()
-  const { pushNotification, show, setShow } = usePushNotification()
+  // const { pushNotification, show, setShow } = usePushNotification()
 
-  useEffect(() => {
-    console.log(pushNotification)
-  }, [pushNotification])
+  // useEffect(() => {
+  //   console.log(pushNotification)
+  // }, [pushNotification])
 
   return (
-    <Screen>
+    <Screen authenticationRequired={false}>
       <View
         style={{
           flex: 1,
@@ -28,4 +27,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Login
