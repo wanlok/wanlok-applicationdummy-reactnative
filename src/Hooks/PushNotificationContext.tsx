@@ -1,28 +1,24 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react'
-import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
+
+interface PushNotification {
+  redirectRoutes: { s: string; p?: string }[]
+  data: { [key: string]: string | object }
+}
+
+const empty = { redirectRoutes: [], data: {} }
 
 const PushNotificationContext = createContext<{
-  pushNotification: FirebaseMessagingTypes.RemoteMessage | null
-  setPushNotification: React.Dispatch<
-    React.SetStateAction<FirebaseMessagingTypes.RemoteMessage | null>
-  >
-  show: boolean
-  setShow: React.Dispatch<React.SetStateAction<boolean>>
+  pushNotification: PushNotification
+  setPushNotification: React.Dispatch<React.SetStateAction<PushNotification>>
 }>({
-  pushNotification: null,
+  pushNotification: empty,
   setPushNotification: () => {},
-  show: false,
-  setShow: () => {},
 })
 
 export const PushNotificationProvider = ({ children }: { children: ReactNode }) => {
-  const [pushNotification, setPushNotification] =
-    useState<FirebaseMessagingTypes.RemoteMessage | null>(null)
-  const [show, setShow] = useState<boolean>(false)
+  const [pushNotification, setPushNotification] = useState<PushNotification>(empty)
   return (
-    <PushNotificationContext.Provider
-      value={{ pushNotification, setPushNotification, show, setShow }}
-    >
+    <PushNotificationContext.Provider value={{ pushNotification, setPushNotification }}>
       {children}
     </PushNotificationContext.Provider>
   )

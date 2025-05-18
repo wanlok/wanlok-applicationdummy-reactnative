@@ -3,9 +3,10 @@ import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useAuthentication } from '../Hooks/AuthenticationContext'
 import { useFocusEffect } from '@react-navigation/native'
-import messaging from '@react-native-firebase/messaging'
+import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from './Navigation'
+import { usePushNotification } from '../Hooks/PushNotificationContext'
 
 export default ({
   authenticationRequired = true,
@@ -17,40 +18,17 @@ export default ({
   children: ReactNode
 }) => {
   const { bottom } = useSafeAreaInsets()
-
   const { authenticate } = useAuthentication()
+  const { pushNotification, setPushNotification } = usePushNotification()
+  const currentRoutes = navigation?.getState().routes.map(route => route.name as string) ?? []
 
   useFocusEffect(() => {
     console.log('authenticationRequired', authenticationRequired)
+    console.log('currentRoutes', currentRoutes)
     if (authenticationRequired) {
       authenticate()
     }
   })
-
-  useEffect(() => {
-    messaging().requestPermission()
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      console.log(remoteMessage)
-      const { data } = remoteMessage
-      if (data) {
-        navigation?.navigate('PushNotification', data)
-      }
-    })
-    return unsubscribe
-  }, [])
-
-  useEffect(() => {
-    messaging()
-      .getInitialNotification()
-      .then(remoteMessage => {
-        if (remoteMessage) {
-          const { data } = remoteMessage
-          if (data) {
-            navigation?.navigate('PushNotification', data)
-          }
-        }
-      })
-  }, [])
 
   useEffect(() => {
     messaging()
@@ -59,6 +37,39 @@ export default ({
         console.log('FCM Token:', token)
       })
   }, [])
+
+  const updatePushNotification = (remoteMessage: FirebaseMessagingTypes.RemoteMessage | null) => {
+    if (remoteMessage) {
+      const { data } = remoteMessage
+      if (data) {
+        console.log('remoteMessage.data', data)
+        const redirectRoutes = JSON.parse(data.redirectRoutes as string)
+        setPushNotification({ redirectRoutes, data })
+      }
+    }
+  }
+
+  useEffect(() => {
+    messaging().requestPermission()
+    const unsubscribe = messaging().onMessage(updatePushNotification)
+    return unsubscribe
+  }, [])
+
+  useEffect(() => {
+    messaging().getInitialNotification().then(updatePushNotification)
+  }, [])
+
+  useEffect(() => {
+    const routes = pushNotification.redirectRoutes.filter(route => !currentRoutes.includes(route.s))
+    if (routes.length > 0) {
+      const { s, p } = routes[0]
+      if (s === 'LoanDetails') {
+        navigation?.navigate('LoanDetails', { index: 0 })
+      } else if (s === 'PushNotification') {
+        navigation?.navigate('PushNotification')
+      }
+    }
+  }, [pushNotification])
 
   return (
     <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>

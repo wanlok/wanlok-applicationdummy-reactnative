@@ -8,45 +8,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from './Navigation'
 
 const PushNotificationContainer = ({ children }: { children: ReactNode }) => {
-  const { pushNotification, setPushNotification, show, setShow } = usePushNotification()
-
-  useEffect(() => {
-    messaging().requestPermission()
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      console.log(remoteMessage)
-      setPushNotification(remoteMessage)
-      // setShow(true)
-
-      // const data = remoteMessage.data
-      // if (data) {
-      //   navigation.navigate('PushNotification')
-      // }
-    })
-    return unsubscribe
-  }, [])
-
-  useEffect(() => {
-    messaging()
-      .getInitialNotification()
-      .then(remoteMessage => {
-        if (remoteMessage) {
-          setPushNotification(remoteMessage)
-          // setShow(true)
-          // const data = remoteMessage.data
-          // if (data) {
-          //   navigation.navigate('PushNotification')
-          // }
-        }
-      })
-  }, [])
-
-  useEffect(() => {
-    messaging()
-      .getToken()
-      .then(token => {
-        console.log('FCM Token:', token)
-      })
-  }, [])
+  const { pushNotification, setPushNotification } = usePushNotification()
 
   // useEffect(() => {
   //   messaging()

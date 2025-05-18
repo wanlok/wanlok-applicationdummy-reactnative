@@ -7,14 +7,12 @@ import { RootStackParamList } from '../../Components/Navigation'
 export default ({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) => {
   const { pushNotification } = usePushNotification()
 
-  const data = pushNotification?.data
-
-  const senderName = data?.senderName as string
-  const accountName = data?.accountName as string
-  const bsb = data?.bsb as string
-  const accountNumber = data?.accountNumber as string
-  const amount = data?.amount as string
-  const balance = data?.balance as string
+  const senderName = pushNotification.data.senderName as string
+  const accountName = pushNotification.data.accountName as string
+  const bsb = pushNotification.data.bsb as string
+  const accountNumber = pushNotification.data.accountNumber as string
+  const amount = pushNotification.data.amount as string
+  const balance = pushNotification.data.balance as string
 
   return (
     <Screen navigation={navigation}>

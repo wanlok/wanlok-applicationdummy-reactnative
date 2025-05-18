@@ -17,7 +17,7 @@ export type RootStackParamList = {
   LoanList: undefined
   LoanDetails: { index: number }
   ApplicationScreen: undefined
-  PushNotification: { [key: string]: string | object }
+  PushNotification: undefined
 }
 
 const Drawer = createDrawerNavigator()
