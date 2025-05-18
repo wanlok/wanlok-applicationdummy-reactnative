@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { Pressable, StyleProp, Text, ViewStyle } from 'react-native'
+import { Color, Size } from './Styles'
 
 export default ({
   onClick,
@@ -15,7 +16,7 @@ export default ({
       onPress={onClick}
       style={[
         {
-          backgroundColor: '#DDDDDD',
+          backgroundColor: Color.row.color,
           justifyContent: 'center',
           paddingTop: 16,
           paddingBottom: 18,
@@ -26,7 +27,9 @@ export default ({
       ]}
       android_ripple={{ color: '#CCCCCC' }}
     >
-      <Text style={{ fontSize: 16, color: 'black', textAlign: 'center' }}>{children}</Text>
+      <Text style={[Color.text, Size.regular, { textAlign: 'center', lineHeight: 24 }]}>
+        {children}
+      </Text>
     </Pressable>
   )
 }

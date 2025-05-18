@@ -1,8 +1,13 @@
 import { RouteProp } from '@react-navigation/native'
-import { Text, View } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import { RootStackParamList } from '../../App'
 import { useEffect } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import TwoColumnList from '../../Components/TwoColumnList'
+import { data } from '../../Data'
+import { Color, Size } from '../../Components/Styles'
+import DButton from '../../Components/DButton'
+import Screen from '../../Components/Screen'
 
 const LoanDetails = ({
   route,
@@ -13,14 +18,73 @@ const LoanDetails = ({
 }) => {
   const { index } = route.params
 
+  const loan = data[index]
+
   useEffect(() => {
-    navigation.setOptions({ title: 'Loan Details' })
+    navigation.setOptions({ title: loan.address })
   }, [index, navigation])
 
   return (
-    <View>
-      <Text>Hello World {index}</Text>
-    </View>
+    <Screen>
+      <ScrollView>
+        <Text style={[Color.text, Size.banner, { textAlign: 'center', marginTop: 32 }]}>
+          $1,200.00
+        </Text>
+        <Text style={[Color.text, Size.regular, { padding: 16, textAlign: 'center' }]}>
+          The next repayment is due on {loan.nextRepaymentDate}
+        </Text>
+        <Text style={[Color.text, Size.small, { fontWeight: 'bold', padding: 16 }]}>Actions</Text>
+        <View style={{ flexDirection: 'row', height: 120 }}>
+          <DButton
+            style={{ flex: 1 }}
+            onClick={() => {
+              console.log('Hello World')
+            }}
+          >
+            Repay Loan
+          </DButton>
+          <View style={{ width: 2 }} />
+          <DButton
+            style={{ flex: 1 }}
+            onClick={() => {
+              console.log('Hello World')
+            }}
+          >
+            Notification Settings
+          </DButton>
+          <View style={{ width: 2 }} />
+          <DButton
+            style={{ flex: 1 }}
+            onClick={() => {
+              console.log('Hello World')
+            }}
+          >
+            Repayment History
+          </DButton>
+        </View>
+        <Text style={[Color.text, Size.small, { fontWeight: 'bold', padding: 16 }]}>
+          Loan Details
+        </Text>
+        <TwoColumnList
+          data={[
+            { label: 'Amount', value: loan.amount },
+            { label: 'Term', value: loan.term },
+            { label: 'Interest Rate', value: loan.interestRate },
+            { label: 'Balance', value: loan.balance },
+          ]}
+        />
+        <Text style={[Color.text, Size.small, { fontWeight: 'bold', padding: 16 }]}>
+          Property and Bank Information
+        </Text>
+        <TwoColumnList
+          data={[
+            { label: 'Address', value: loan.address },
+            { label: 'BSB', value: loan.bsb },
+            { label: 'Account Number', value: loan.accountNumber },
+          ]}
+        />
+      </ScrollView>
+    </Screen>
   )
 }
 

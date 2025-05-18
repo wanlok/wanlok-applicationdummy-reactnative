@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import DButton from '../../Components/DButton'
-import DPage from '../../Components/DPage'
 import DTextField from '../../Components/DTextField'
-import { Text } from 'react-native'
+import { Text, View } from 'react-native'
+import Screen from '../../Components/Screen'
 
 const isValidName = (name: string) => {
   return name.length > 0
@@ -29,27 +29,29 @@ export default () => {
     setValid(isValidName(name) && isValidAge(age))
   }
   return (
-    <DPage>
-      <DTextField
-        placeholder={'Name'}
-        value={name}
-        onChange={name => {
-          setName(name)
-        }}
-      />
-      <DTextField
-        placeholder={'Age'}
-        value={age}
-        onChange={age => {
-          setAge(age)
-        }}
-        style={{ marginTop: 16 }}
-      />
-      <DButton style={{ marginTop: 16 }} onClick={submit}>
-        Submit
-      </DButton>
-      {valid && <Text style={{ color: 'green' }}>Valid submission</Text>}
-      {valid === false && <Text style={{ color: 'red' }}>Invalid submission</Text>}
-    </DPage>
+    <Screen>
+      <View style={{ padding: 16 }}>
+        <DTextField
+          placeholder={'Name'}
+          value={name}
+          onChange={name => {
+            setName(name)
+          }}
+        />
+        <DTextField
+          placeholder={'Age'}
+          value={age}
+          onChange={age => {
+            setAge(age)
+          }}
+          style={{ marginTop: 16 }}
+        />
+        <DButton style={{ marginTop: 16 }} onClick={submit}>
+          Submit
+        </DButton>
+        {valid && <Text style={{ color: 'green' }}>Valid submission</Text>}
+        {valid === false && <Text style={{ color: 'red' }}>Invalid submission</Text>}
+      </View>
+    </Screen>
   )
 }

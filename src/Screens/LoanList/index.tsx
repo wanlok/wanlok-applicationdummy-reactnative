@@ -1,88 +1,56 @@
-import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { FlatList, Pressable, Text, View } from 'react-native'
 import { Color, Size } from '../../Components/Styles'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../App'
 import { data } from '../../Data'
 import { useEffect } from 'react'
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-  },
-  column: {
-    flex: 0.5,
-    padding: 16,
-    backgroundColor: '#EEEEEE',
-  },
-  columnLeft: {
-    alignItems: 'flex-start',
-  },
-  columnRight: {
-    alignItems: 'flex-end',
-  },
-})
+import TwoColumnList from '../../Components/TwoColumnList'
+import Screen from '../../Components/Screen'
 
 const LoanList = ({
   navigation,
 }: {
   navigation: NativeStackNavigationProp<RootStackParamList>
 }) => {
-  const { bottom } = useSafeAreaInsets()
-
   useEffect(() => {
     navigation.setOptions({ title: 'Loans' })
   }, [navigation])
 
   return (
-    <FlatList
-      style={{ marginBottom: bottom }}
-      data={data}
-      renderItem={({ item, index }) => {
-        return (
-          <Pressable
-            onPress={() => {
-              navigation.navigate('LoanDetails', { index })
-            }}
-            style={[
-              {
-                padding: 16,
-                backgroundColor: '#FFFFFF',
-              },
-              index > 0 ? { marginTop: 8 } : {},
-            ]}
-            android_ripple={{ color: '#CCCCCC' }}
-          >
-            <Text style={[Color.text, Size.smaller]}>Loan {index + 1}</Text>
-            <View style={{ marginTop: 8 }}>
-              <Text style={[Color.text, Size.larger]}>{item.address}</Text>
-            </View>
-            <View style={{ marginTop: 12 }}>
-              <Text style={[Color.text, Size.regular]}>
-                {item.bsb} {item.accountNumber}
-              </Text>
-            </View>
-            <View style={[styles.row, { marginTop: 16 }]}>
-              <View style={[styles.column, styles.columnLeft]}>
-                <Text style={[Color.text, Size.regular]}>Amount</Text>
-              </View>
-              <View style={[styles.column, styles.columnRight]}>
-                <Text style={[Color.text, Size.regular]}>{item.amount}</Text>
-              </View>
-            </View>
-            <View style={[styles.row, { marginTop: 2 }]}>
-              <View style={[styles.column, styles.columnLeft]}>
-                <Text style={[Color.text, Size.regular]}>Balance</Text>
-              </View>
-              <View style={[styles.column, styles.columnRight]}>
-                <Text style={[Color.text, Size.regular]}>{item.balance}</Text>
-              </View>
-            </View>
-          </Pressable>
-        )
-      }}
-      keyExtractor={item => item.accountNumber}
-    />
+    <Screen>
+      <FlatList
+        data={data}
+        renderItem={({ item, index }) => {
+          return (
+            <Pressable
+              key={`loan${index}`}
+              onPress={() => {
+                navigation.navigate('LoanDetails', { index })
+              }}
+              style={[
+                {
+                  padding: 16,
+                  backgroundColor: '#EEEEEE',
+                },
+                index > 0 ? { marginTop: 8 } : {},
+              ]}
+              android_ripple={{ color: '#CCCCCC' }}
+            >
+              <Text style={[Color.text, Size.small]}>Loan {index + 1}</Text>
+              <Text style={[Color.text, Size.large, { marginTop: 8 }]}>{item.address}</Text>
+              <TwoColumnList
+                data={[
+                  { label: 'Amount', value: item.amount },
+                  { label: 'Balance', value: item.balance },
+                ]}
+                marginTop={16}
+              />
+            </Pressable>
+          )
+        }}
+        keyExtractor={item => item.accountNumber}
+      />
+    </Screen>
   )
 }
 

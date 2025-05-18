@@ -4,16 +4,22 @@ export const Color = StyleSheet.create({
   text: {
     color: '#000000',
   },
+  row: {
+    color: '#DDDDDD',
+  },
 })
 
 export const Size = StyleSheet.create({
-  smaller: {
+  small: {
     fontSize: 14,
   },
   regular: {
     fontSize: 16,
   },
-  larger: {
+  large: {
     fontSize: 20,
+  },
+  banner: {
+    fontSize: 72,
   },
 })

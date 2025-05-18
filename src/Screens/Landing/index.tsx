@@ -5,6 +5,7 @@ import DButton from '../../Components/DButton'
 import { usePushNotification } from '../../Components/PushNotification/PushNotificationContext'
 import { FlatList, RefreshControl } from 'react-native'
 import useLogin from '../../useLogin'
+import Screen from '../../Components/Screen'
 
 const Home = ({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) => {
   const { authenticated, authenticate, login, logout } = useLogin()
@@ -50,17 +51,19 @@ const Home = ({ navigation }: { navigation: NativeStackNavigationProp<RootStackP
   }
 
   return (
-    <FlatList
-      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-      data={authenticated ? userMenu : menu}
-      renderItem={({ item, index }) => {
-        return (
-          <DButton style={{ marginTop: index > 0 ? 1 : 0 }} onClick={item.onClick}>
-            {item.title}
-          </DButton>
-        )
-      }}
-    />
+    <Screen>
+      <FlatList
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        data={authenticated ? userMenu : menu}
+        renderItem={({ item, index }) => {
+          return (
+            <DButton style={{ marginTop: index > 0 ? 2 : 0 }} onClick={item.onClick}>
+              {item.title}
+            </DButton>
+          )
+        }}
+      />
+    </Screen>
   )
 }
 
