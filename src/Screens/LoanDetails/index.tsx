@@ -1,6 +1,5 @@
 import { RouteProp } from '@react-navigation/native'
 import { ScrollView, Text, View } from 'react-native'
-import { RootStackParamList } from '../../App'
 import { useEffect } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import TwoColumnList from '../../Components/TwoColumnList'
@@ -8,6 +7,7 @@ import { data } from '../../Data'
 import { Color, Size } from '../../Styles'
 import DButton from '../../Components/DButton'
 import Screen from '../../Components/Screen'
+import { RootStackParamList } from '../../Components/Navigation'
 
 const LoanDetails = ({
   route,

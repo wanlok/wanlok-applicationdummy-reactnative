@@ -1,26 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import DButton from '../../Components/DButton'
+import React, { useEffect } from 'react'
+import { View } from 'react-native'
 import { usePushNotification } from '../../Hooks/PushNotificationContext'
-import { FlatList, RefreshControl, Text, View } from 'react-native'
+import DButton from '../../Components/DButton'
 import Screen from '../../Components/Screen'
-import { RootStackParamList } from '../../Components/Navigation'
 import { useAuthentication } from '../../Hooks/AuthenticationContext'
 
-const Home = ({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) => {
-  const { authenticated, authenticate, login, logout } = useAuthentication()
+const Home = () => {
+  const { login } = useAuthentication()
   const { pushNotification, show, setShow } = usePushNotification()
-  const [refreshing, setRefreshing] = useState(false)
 
   useEffect(() => {
     console.log(pushNotification)
   }, [pushNotification])
-
-  const onRefresh = async () => {
-    setRefreshing(true)
-    await authenticate()
-    setRefreshing(false)
-  }
 
   return (
     <Screen>
@@ -33,17 +24,6 @@ const Home = ({ navigation }: { navigation: NativeStackNavigationProp<RootStackP
       >
         <DButton onClick={login}>Login</DButton>
       </View>
-      {/* <FlatList
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-        data={authenticated ? userMenu : menu}
-        renderItem={({ item, index }) => {
-          return (
-            <DButton style={{ marginTop: index > 0 ? 2 : 0 }} onClick={item.onClick}>
-              {item.title}
-            </DButton>
-          )
-        }}
-      /> */}
     </Screen>
   )
 }
