@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Image, Text, View } from 'react-native'
 import DButton from '../../Components/DButton'
 import Screen from '../../Components/Screen'
 import { useAuthentication } from '../../Hooks/AuthenticationContext'
@@ -22,9 +22,21 @@ const Login = ({ navigation }: { navigation: NativeStackNavigationProp<RootStack
       >
         {authenticated === null && <Text style={[Color.text, Size.regular]}>Loading...</Text>}
         {authenticated === false && (
-          <DButton onClick={login} style={{ width: '100%' }}>
-            Login
-          </DButton>
+          <>
+            <Text style={[Size.large, Color.text]}>Mock Finance</Text>
+            <Image
+              style={{
+                width: 200,
+                height: 200,
+                borderRadius: 100,
+                marginTop: 40,
+              }}
+              source={require('./logo.png')}
+            />
+            <DButton onClick={login} style={{ width: '80%', marginTop: 96 }}>
+              Login
+            </DButton>
+          </>
         )}
       </View>
     </Screen>
