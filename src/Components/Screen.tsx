@@ -7,6 +7,7 @@ import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messag
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from './Navigation'
 import { usePushNotification } from '../Hooks/PushNotificationContext'
+import PushNotificationButtonSheet from './PushNotificationBottomSheet'
 
 export default ({
   authenticationRequired = true,
@@ -18,7 +19,7 @@ export default ({
   children: ReactNode
 }) => {
   const { bottom } = useSafeAreaInsets()
-  const { authenticate } = useAuthentication()
+  const { authenticated, authenticate } = useAuthentication()
   const {
     pushNotification,
     setPushNotification,
@@ -50,7 +51,9 @@ export default ({
         console.log('remoteMessage.data', data)
         const redirectRoutes = JSON.parse(data.redirectRoutes as string)
         setPushNotification({ redirectRoutes, data })
-        setPushNotificationViewed(false)
+        if (authenticated === true) {
+          setPushNotificationViewed(false)
+        }
       }
     }
   }
@@ -85,6 +88,7 @@ export default ({
   return (
     <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
       <View style={[{ flex: 1, marginBottom: bottom }]}>{children}</View>
+      <PushNotificationButtonSheet />
     </View>
   )
 }

@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, ReactNode, Dispatch } from 'react'
 
-interface PushNotification {
+export interface PushNotification {
   redirectRoutes: { s: string; p?: { index: number } }[]
   data: { [key: string]: string | object }
 }

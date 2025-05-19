@@ -17,10 +17,15 @@ const Login = ({ navigation }: { navigation: NativeStackNavigationProp<RootStack
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
+          backgroundColor: '#EEEEEE',
         }}
       >
         {authenticated === null && <Text style={[Color.text, Size.regular]}>Loading...</Text>}
-        {authenticated === false && <DButton onClick={login}>Login</DButton>}
+        {authenticated === false && (
+          <DButton onClick={login} style={{ width: '100%' }}>
+            Login
+          </DButton>
+        )}
       </View>
     </Screen>
   )
