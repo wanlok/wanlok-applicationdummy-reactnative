@@ -10,13 +10,13 @@ import { useAuthentication } from '../Hooks/AuthenticationContext'
 const PushNotificationButtonSheet = () => {
   const { bottom } = useSafeAreaInsets()
   const { authenticated } = useAuthentication()
-  const { pushNotification, setPushNotificationViewed } = usePushNotification()
+  const { pushNotification, setPushNotificationRedirected } = usePushNotification()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
   useEffect(() => {
     if (authenticated === false) {
       bottomSheetModalRef.current?.present()
-      setPushNotificationViewed(true)
+      setPushNotificationRedirected(true)
     }
   }, [pushNotification, authenticated])
 

@@ -12,16 +12,21 @@ const PushNotificationContext = createContext<{
   setPushNotification: Dispatch<React.SetStateAction<PushNotification>>
   pushNotificationViewed: boolean
   setPushNotificationViewed: Dispatch<React.SetStateAction<boolean>>
+  pushNotificationRedirected: boolean
+  setPushNotificationRedirected: Dispatch<React.SetStateAction<boolean>>
 }>({
   pushNotification: emptyPushNotification,
   setPushNotification: () => {},
   pushNotificationViewed: false,
   setPushNotificationViewed: () => {},
+  pushNotificationRedirected: false,
+  setPushNotificationRedirected: () => {},
 })
 
 export const PushNotificationProvider = ({ children }: { children: ReactNode }) => {
   const [pushNotification, setPushNotification] = useState<PushNotification>(emptyPushNotification)
   const [pushNotificationViewed, setPushNotificationViewed] = useState(false)
+  const [pushNotificationRedirected, setPushNotificationRedirected] = useState(false)
   return (
     <PushNotificationContext.Provider
       value={{
@@ -29,6 +34,8 @@ export const PushNotificationProvider = ({ children }: { children: ReactNode }) 
         setPushNotification,
         pushNotificationViewed,
         setPushNotificationViewed,
+        pushNotificationRedirected,
+        setPushNotificationRedirected,
       }}
     >
       {children}

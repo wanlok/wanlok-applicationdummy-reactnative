@@ -8,6 +8,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from './Navigation'
 import { usePushNotification } from '../Hooks/PushNotificationContext'
 import PushNotificationButtonSheet from './PushNotificationBottomSheet'
+import DummyModal from './DummyModal'
 
 export default ({
   authenticationRequired = true,
@@ -25,6 +26,8 @@ export default ({
     setPushNotification,
     pushNotificationViewed,
     setPushNotificationViewed,
+    pushNotificationRedirected,
+    setPushNotificationRedirected,
   } = usePushNotification()
   const currentRoutes = navigation?.getState().routes.map(route => route.name as string) ?? []
 
@@ -51,8 +54,9 @@ export default ({
         console.log('remoteMessage.data', data)
         const redirectRoutes = JSON.parse(data.redirectRoutes as string)
         setPushNotification({ redirectRoutes, data })
+        setPushNotificationViewed(false)
         if (authenticated === true) {
-          setPushNotificationViewed(false)
+          setPushNotificationRedirected(false)
         }
       }
     }
@@ -70,7 +74,7 @@ export default ({
 
   useEffect(() => {
     const routes = pushNotification.redirectRoutes.filter(route => !currentRoutes.includes(route.s))
-    if (routes.length > 0 && !pushNotificationViewed) {
+    if (routes.length > 0 && !pushNotificationRedirected) {
       const { s, p } = routes[0]
       if (s === 'LoanDetails' && p != undefined) {
         navigation?.navigate('LoanDetails', p)
@@ -80,15 +84,28 @@ export default ({
         navigation?.navigate('PushNotification')
       }
       if (routes.length === 1) {
-        setPushNotificationViewed(true)
+        setPushNotificationRedirected(true)
       }
     }
-  }, [pushNotification, pushNotificationViewed])
+  }, [pushNotification, pushNotificationRedirected])
+
+  const { notificationTitle, notificationText } = pushNotification.data
 
   return (
     <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
       <View style={[{ flex: 1, marginBottom: bottom }]}>{children}</View>
-      <PushNotificationButtonSheet />
+      {/* <DummyModal
+        visible={
+          !pushNotificationViewed &&
+          notificationTitle !== undefined &&
+          notificationText !== undefined
+        }
+        title={notificationTitle as string}
+        text={notificationText as string}
+        leftButtonText="Navigate"
+        rightButtonText="Close"
+      /> */}
+      {/* <PushNotificationButtonSheet /> */}
     </View>
   )
 }
