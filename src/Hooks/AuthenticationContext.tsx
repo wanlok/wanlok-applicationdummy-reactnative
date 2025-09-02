@@ -16,7 +16,7 @@ const useAuth0Authentication = () => {
   const [authenticated, setAuthenticated] = useState<boolean | null>(null)
 
   useEffect(() => {
-    console.log(error)
+    console.log(error) // This error will be thrown on slow network
   }, [error])
 
   const isSessionExpired = async () => {
