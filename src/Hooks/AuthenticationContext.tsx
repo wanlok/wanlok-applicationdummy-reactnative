@@ -4,9 +4,20 @@ import { useAuth0 } from 'react-native-auth0'
 import Config from 'react-native-config'
 
 const useAuth0Authentication = () => {
-  const { authorize, clearSession, clearCredentials, hasValidCredentials, getCredentials, user } =
-    useAuth0()
+  const {
+    authorize,
+    clearSession,
+    clearCredentials,
+    hasValidCredentials,
+    getCredentials,
+    user,
+    error,
+  } = useAuth0()
   const [authenticated, setAuthenticated] = useState<boolean | null>(null)
+
+  useEffect(() => {
+    console.log(error)
+  }, [error])
 
   const isSessionExpired = async () => {
     let sessionExpired = false
